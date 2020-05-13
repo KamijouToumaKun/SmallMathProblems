@@ -1,15 +1,14 @@
 # SmallMathProblems
-做过的一些有趣的小的数学问题（比如解数独），就放在这里。
+Here are some interesting small mathematical problems (such as solving Sudoku).
 
-landlord是用暴搜的方法解决两人明牌斗地主，谁有必胜策略；
-贴吧里经常有斗地主残局的帖子，大家吵得不可开交，莫衷一是，于是我就写了这个程序
-读入文件是gameset.txt。
+Landlord is to use the method of violent search to solve the problem of two people's game "fighting against the landlord", who has the winning strategy; there are often Posts fighting against the landlord online and everyone quarrels so hard that they can't agree. So I wrote this program to read the file gameset.txt.
 
-sudoku是求解数独的程序；
-读入文件是sudoku.txt，输出文件是result.txt。
+Sudoku is a program to solve Sudoku; the read file is sudoku.txt and the output file is result.txt.
 
-CSE105是一个西浦的数学问题，题目要求见压缩包内部。
+CSE105 is a mathematical problem from a friend of mine. Please refer to the inner part of the compression package for the requirements.
 
-gauss是高斯消元的求解。
+Gauss is the solution of Gauss elimination.
 
-像表达式求值之类的，大家都写过的东西，我就不放了吧。
+Logical inference is to solve some logical puzzles like Cheryl's Birthday.
+
+TODO: expression evaluation.
