@@ -4,6 +4,7 @@
 # B said: I didn't know it, but now I know.
 # Jia said: Then I also know.
 # What are these two numbers?
+# Consider two situations: a and b may be the same and may not be the same
 # 
 # Chinese Version:
 # 从2-100中取出两个数,把和告诉甲,把积告诉乙,
@@ -11,6 +12,7 @@
 # 乙说，我本来不知道，但现在知道了.
 # 甲说：那我也知道了.
 # 这两个数是多少？
+# 考虑两种可能：a与b可能相同和不可能相同
 from utils import add, extract_multi, extract_single, both_multi, update
 
 p_dict = {}
