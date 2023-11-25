@@ -4,19 +4,19 @@
 using namespace std;
 /*
 A = 14, 2 = 15, s(mall joker) = 16, b(ig joker) = 17
-0£ºÒª²»Æğ
-1£ºµ¥ 2£ºË« 3£ºÈı 4£ºÈı´øÒ» 5£ºÈı´ø¶ş
-6£ºµ¥Ë³ 7£ºË«Ë³ 8£ºÈıË³ 9£ºÈı´øÒ»Ë³ 10£ºÈı´ø¶şË³
-11£ºÕ¨µ¯ 12£ºËÄ´ø¶ş
-gameset.txt µÚÒ»ÅÅÈ·¶¨ÒÔÉÏ12ÖÖ¹æÔò µÚ¶şÈıÅÅĞ´µçÄÔÓëÄãµÄÅÆ
-Çø·Ö´óĞ¡Ğ´ ²»¼ÆË³Ğò ÒÔ0½áÎ² 
+0ï¼šè¦ä¸èµ·
+1ï¼šå• 2ï¼šåŒ 3ï¼šä¸‰ 4ï¼šä¸‰å¸¦ä¸€ 5ï¼šä¸‰å¸¦äºŒ
+6ï¼šå•é¡º 7ï¼šåŒé¡º 8ï¼šä¸‰é¡º 9ï¼šä¸‰å¸¦ä¸€é¡º 10ï¼šä¸‰å¸¦äºŒé¡º
+11ï¼šç‚¸å¼¹ 12ï¼šå››å¸¦äºŒ
+gameset.txt ç¬¬ä¸€æ’ç¡®å®šä»¥ä¸Š12ç§è§„åˆ™ ç¬¬äºŒä¸‰æ’å†™ç”µè„‘ä¸ä½ çš„ç‰Œ
+åŒºåˆ†å¤§å°å†™ ä¸è®¡é¡ºåº ä»¥0ç»“å°¾ 
 
-Ä¿Ç°Ã»ÓĞÕÒµ½¸üºÃµÄhashº¯Êı¡­¡­
+ç›®å‰æ²¡æœ‰æ‰¾åˆ°æ›´å¥½çš„hashå‡½æ•°â€¦â€¦
 */ 
-struct dpHash//µ±Ò»·½Òª²»Æğ»òÕß¿ª¾ÖµÄÊ±ºò£¬¶Ô³¡ÉÏË«·½ÅÆĞÍµÄ¼ÇÂ¼ 
+struct dpHash//å½“ä¸€æ–¹è¦ä¸èµ·æˆ–è€…å¼€å±€çš„æ—¶å€™ï¼Œå¯¹åœºä¸ŠåŒæ–¹ç‰Œå‹çš„è®°å½• 
 {
-	int player;//ÏÈĞĞ·½ 
-	long long cardHash[2];//Ë«·½ÅÆĞÍµÄÎå½øÖÆ×´Ì¬Ñ¹Ëõ 
+	int player;//å…ˆè¡Œæ–¹ 
+	long long cardHash[2];//åŒæ–¹ç‰Œå‹çš„äº”è¿›åˆ¶çŠ¶æ€å‹ç¼© 
 	inline friend bool operator <(dpHash x, dpHash y)
 	{
 		if (x.player != y.player) return x.player < y.player;
@@ -24,24 +24,24 @@ struct dpHash//µ±Ò»·½Òª²»Æğ»òÕß¿ª¾ÖµÄÊ±ºò£¬¶Ô³¡ÉÏË«·½ÅÆĞÍµÄ¼ÇÂ¼
 		else return x.cardHash[1] < y.cardHash[1];
 	}
 };
-set <dpHash> dp[2];//¼ÇÒä»¯ËÑË÷ 
-int card[2][18], newCard[2][18];//µ±Ç°µÄÅÆÓëµçÄÔÔ¤±¸ÔÚ±¾ÂÖ³öÍêºóÁôÏÂµÄÅÆ 
-bool typeAllowed[13];//È·¶¨ÆôÓÃÄÄĞ©¹æÔò 
-const int leastSeries[6] = {0,5,3,2,2,2};//Á¬Ğø¼¸ÕÅÅÆÒÔÉÏ²ÅËãË³×Ó 
+set <dpHash> dp[2];//è®°å¿†åŒ–æœç´¢ 
+int card[2][18], newCard[2][18];//å½“å‰çš„ç‰Œä¸ç”µè„‘é¢„å¤‡åœ¨æœ¬è½®å‡ºå®Œåç•™ä¸‹çš„ç‰Œ 
+bool typeAllowed[13];//ç¡®å®šå¯ç”¨å“ªäº›è§„åˆ™ 
+const int leastSeries[6] = {0,5,3,2,2,2};//è¿ç»­å‡ å¼ ç‰Œä»¥ä¸Šæ‰ç®—é¡ºå­ 
 bool flagSeries[2][4][18][16];
 const long long five[18] = {0,0,0,1,5,25,125,625,3125,15625,78125,390625,1953125,9765625,
 			48828125,244140625,1220703125,6103515625};
 bool attachFinder(int depth, int cardType, int beg, int num, 
-					int index, int rest);//´æÔÚµİ¹é»¥Ïàµ÷ÓÃ£¬ÏÈÉùÃ÷ 
+					int index, int rest);//å­˜åœ¨é€’å½’äº’ç›¸è°ƒç”¨ï¼Œå…ˆå£°æ˜ 
 
-inline bool isEmpty(int player)//ÅĞ¶ÏÒ»·½µÄÅÆÊÇ·ñÒÑ´òÍê 
+inline bool isEmpty(int player)//åˆ¤æ–­ä¸€æ–¹çš„ç‰Œæ˜¯å¦å·²æ‰“å®Œ 
 {
 	for (int i=3;i<=17;++i)
 		if (card[player][i]) return false;
 	return true;
 }
 inline bool hasSeries(int player, int cardNum, int beg, int num)
-{//ÅĞ¶ÏÒ»·½ÊÇ·ñÓĞÄ³ÖÖ´ÓÄ³ÕÅÅÆ¿ªÊ¼µÄË³×Ó 
+{//åˆ¤æ–­ä¸€æ–¹æ˜¯å¦æœ‰æŸç§ä»æŸå¼ ç‰Œå¼€å§‹çš„é¡ºå­ 
 	if (!flagSeries[player][cardNum][beg][num]) return false;
 
 	for (int i=0;i<num;++i)
@@ -49,22 +49,22 @@ inline bool hasSeries(int player, int cardNum, int beg, int num)
 	return true;
 }
 inline void subSeries(int player, int cardNum, int beg, int num)
-{//´ò³öË³×Ó 
+{//æ‰“å‡ºé¡ºå­ 
 	for (int i=0;i<num;++i)
 		card[player][beg+i] -= cardNum;
 }
 inline void addSeries(int player, int cardNum, int beg, int num)
-{//»¹Ô­Ë³×Ó 
+{//è¿˜åŸé¡ºå­ 
 	for (int i=0;i<num;++i)
 		card[player][beg+i] += cardNum;
 }
-inline void newCardRecord()//¼ÇÂ¼ÏÂµçÄÔÔ¤±¸ÔÚ±¾ÂÖ³öÍêºóÁôÏÂµÄÅÆ 
+inline void newCardRecord()//è®°å½•ä¸‹ç”µè„‘é¢„å¤‡åœ¨æœ¬è½®å‡ºå®Œåç•™ä¸‹çš„ç‰Œ 
 {
 	for (int i=0;i<2;++i)
 		for (int j=3;j<=17;++j)
 			newCard[i][j] = card[i][j];
 }
-inline void numTocard(int num)//Êä³öÅÆ 
+inline void numTocard(int num)//è¾“å‡ºç‰Œ 
 {
 	if (num <= 10) cout << num << " ";
 	else if (num == 11) cout << "J ";
@@ -75,7 +75,7 @@ inline void numTocard(int num)//Êä³öÅÆ
 	else if (num == 16) cout << "s ";
 	else cout << "b ";
 }
-dpHash hashCalc(int player)//µ±Ç°ÅÆĞÍhash»¯ 
+dpHash hashCalc(int player)//å½“å‰ç‰Œå‹hashåŒ– 
 {
 	dpHash temp;
 	temp.player = player;
@@ -88,12 +88,12 @@ dpHash hashCalc(int player)//µ±Ç°ÅÆĞÍhash»¯
 	}
 	return temp;
 } 
-inline bool hashRecord(dpHash dpHashNow, bool ans)//ËÑË÷½á¹ûµÄ¼ÇÂ¼ 
+inline bool hashRecord(dpHash dpHashNow, bool ans)//æœç´¢ç»“æœçš„è®°å½• 
 {
 	dp[ans].insert(dpHashNow);
 	return ans;
 }
-void gameset()//ÓÎÏ·¿ª¾ÖµÄÉèÖÃ 
+void gameset()//æ¸¸æˆå¼€å±€çš„è®¾ç½® 
 {
 	cout << "Make sure you have written down your own setting in gameset.txt." << endl; 
 	cout << "Determine the rules you adopt of the 12 in the 1st line." << endl;
@@ -103,9 +103,9 @@ void gameset()//ÓÎÏ·¿ª¾ÖµÄÉèÖÃ
 	cout << "Game starts!" << endl << endl;
 	
 	ifstream fin("gameset.txt");
-	for (int i=1;i<13;++i)//¶ÁÈë¹æÔò 
+	for (int i=1;i<13;++i)//è¯»å…¥è§„åˆ™ 
 		fin >> typeAllowed[i];
-	for (int i=0;i<2;++i)//¶ÁÈëË«·½ÅÆĞÍ£¬ÒÔ0½áÊø 
+	for (int i=0;i<2;++i)//è¯»å…¥åŒæ–¹ç‰Œå‹ï¼Œä»¥0ç»“æŸ 
 	{
 		string temp;
 		fin >> temp;
@@ -123,7 +123,7 @@ void gameset()//ÓÎÏ·¿ª¾ÖµÄÉèÖÃ
 			fin >> temp;
 		}
 	}
-	cout << "Com:";//Êä³öË«·½ÅÆĞÍ 
+	cout << "Com:";//è¾“å‡ºåŒæ–¹ç‰Œå‹ 
 	for (int i=17;i>=3;--i)
 		for (int j=0;j<card[0][i];++j)
 			numTocard(i);
@@ -133,7 +133,7 @@ void gameset()//ÓÎÏ·¿ª¾ÖµÄÉèÖÃ
 			numTocard(i);
 	cout << endl;
 }
-void com()//µçÄÔ³öÅÆ 
+void com()//ç”µè„‘å‡ºç‰Œ 
 {
 	cout << "Computer's move:";
 	for (int i=17;i>=3;--i)
@@ -153,7 +153,7 @@ void com()//µçÄÔ³öÅÆ
 			numTocard(i);
 	cout << endl;
 }
-void ply(int &cardType, int &beg, int &num)//ÈËÀà³öÅÆ£¬ÔÚÒıÓÃÖĞ¼ÇÂ¼ÏÂ³öÅÆĞÅÏ¢ 
+void ply(int &cardType, int &beg, int &num)//äººç±»å‡ºç‰Œï¼Œåœ¨å¼•ç”¨ä¸­è®°å½•ä¸‹å‡ºç‰Œä¿¡æ¯ 
 {	
 	if (isEmpty(0))
 	{
@@ -198,21 +198,21 @@ void ply(int &cardType, int &beg, int &num)//ÈËÀà³öÅÆ£¬ÔÚÒıÓÃÖĞ¼ÇÂ¼ÏÂ³öÅÆĞÅÏ¢
 	}
 }
 bool determine(int depth, int cardType, int beg, int num, bool canPass = true)
-{//²©ŞÄÊ÷¾ö²ß 
+{//åšå¼ˆæ ‘å†³ç­– 
 	const int player = depth % 2;
 	if (isEmpty(1-player)) return false;
 	bool ans = false;
 	
-	if (cardType == 0)//Ò»·½Òª²»Æğ»òÕß¸Õ¿ª¾Ö	
-	{//ÅĞ¶Ïµ±Ç°×´¿öÊÇ·ñÒÑ±»ËÑË÷Óë¼ÇÂ¼¹ı 
+	if (cardType == 0)//ä¸€æ–¹è¦ä¸èµ·æˆ–è€…åˆšå¼€å±€	
+	{//åˆ¤æ–­å½“å‰çŠ¶å†µæ˜¯å¦å·²è¢«æœç´¢ä¸è®°å½•è¿‡ 
 		dpHash dpHashNow = hashCalc(player);
-		if (depth > 0)//Èç¹û²»ÒªÇó¸ø³ö¾ßÌå³öÅÆÄÚÈİ 
+		if (depth > 0)//å¦‚æœä¸è¦æ±‚ç»™å‡ºå…·ä½“å‡ºç‰Œå†…å®¹ 
 		{
 			for (int i=0;i<2;++i)
 				if (dp[i].find(dpHashNow) != dp[i].end())
 					return i;
 		}
-		for (int i=10;i>=6;--i)//³¢ÊÔ¸÷ÖÖ¿É³öµÄÅÆ
+		for (int i=10;i>=6;--i)//å°è¯•å„ç§å¯å‡ºçš„ç‰Œ
 			if (typeAllowed[i])
 			{
 				for (int j=14-i;j>=leastSeries[i-5];--j)
@@ -238,20 +238,20 @@ bool determine(int depth, int cardType, int beg, int num, bool canPass = true)
 				if (ans) return hashRecord(dpHashNow, true);
 				else if (depth == 0)
 					cout << "(Type " << i << ", length 1) is not OK." << endl;
-			}//ÓĞÒ»ÖÖ³ö·¨¿ÉÒÔÏÈÊÖÊ¤ÔòÎªÏÈÊÖÊ¤ 
-		return hashRecord(dpHashNow, false);//·ñÔòÎªºóÊÖÊ¤ 
+			}//æœ‰ä¸€ç§å‡ºæ³•å¯ä»¥å…ˆæ‰‹èƒœåˆ™ä¸ºå…ˆæ‰‹èƒœ 
+		return hashRecord(dpHashNow, false);//å¦åˆ™ä¸ºåæ‰‹èƒœ 
 	}
-	else if (cardType <= 3)//ÒÔÏÂÃ¿¶ÎÄÚÈİÀàËÆ 
+	else if (cardType <= 3)//ä»¥ä¸‹æ¯æ®µå†…å®¹ç±»ä¼¼ 
 	{
 		for (int i=beg;i<=17;++i)
 			if (card[player][i] >= cardType)
 			{
 				card[player][i] -= cardType;
 				ans = !determine(depth+1, cardType, i+1, num);
-				if (ans && depth == 0) newCardRecord();//¼ÇÂ¼³öÍêºóÊ£ÏÂµÄÅÆ 
+				if (ans && depth == 0) newCardRecord();//è®°å½•å‡ºå®Œåå‰©ä¸‹çš„ç‰Œ 
 				card[player][i] += cardType;
 				if (ans) return true;
-			}//³ö²»ÆğÏàÍ¬ÅÆĞÍ»ò³öºóÓ®²»ÁË£¬Ôò½«È«²¿Ï£ÍûÍĞ¸¶¸øÕ¨µ¯ 
+			}//å‡ºä¸èµ·ç›¸åŒç‰Œå‹æˆ–å‡ºåèµ¢ä¸äº†ï¼Œåˆ™å°†å…¨éƒ¨å¸Œæœ›æ‰˜ä»˜ç»™ç‚¸å¼¹ 
 		return canPass ? determine(depth, 11, 3, 1) : false;
 	} 
 	else if (cardType <= 5)
@@ -296,9 +296,9 @@ bool determine(int depth, int cardType, int beg, int num, bool canPass = true)
 		for (int i=beg;i<=14-num+1;++i)
 			if (hasSeries(player, 3, i, num))
 			{
-				subSeries(player, 3, i, num);//ÏÈÈ·¶¨ÈıÕÅµÄË³×Ó 
+				subSeries(player, 3, i, num);//å…ˆç¡®å®šä¸‰å¼ çš„é¡ºå­ 
 				ans = attachFinder(depth, cardType, i+1, num, 
-					3, num);//ÔÙµİ¹é³¢ÊÔÃ¿Ò»×éÈıÕÅËù´øµÄÅÆ	
+					3, num);//å†é€’å½’å°è¯•æ¯ä¸€ç»„ä¸‰å¼ æ‰€å¸¦çš„ç‰Œ	
 				addSeries(player, 3, i, num);
 				if (ans) return true;
 			}
@@ -306,7 +306,7 @@ bool determine(int depth, int cardType, int beg, int num, bool canPass = true)
 	}
 	else if (cardType == 11)
 	{
-		for (int i=beg;i<=15;++i)//ÆÕÍ¨Õ¨µ¯ 
+		for (int i=beg;i<=15;++i)//æ™®é€šç‚¸å¼¹ 
 			if (card[player][i] >= 4)
 			{
 				card[player][i] -= 4;
@@ -315,7 +315,7 @@ bool determine(int depth, int cardType, int beg, int num, bool canPass = true)
 				card[player][i] += 4;
 				if (ans) return true;
 			}
-		if (beg<=15 && hasSeries(player, 1, 16, 2))//´óĞ¡¹í 
+		if (beg<=15 && hasSeries(player, 1, 16, 2))//å¤§å°é¬¼ 
 		{
 			subSeries(player, 1, 16, 2);
 			ans = !determine(depth+1, cardType, 16, num);
@@ -324,7 +324,7 @@ bool determine(int depth, int cardType, int beg, int num, bool canPass = true)
 			if (ans) return true;
 		}
 		if (depth == 0) newCardRecord();
-		return canPass ? !determine(depth+1, 0, 0, 0) : false;//³¹µ×Òª²»Æğ 
+		return canPass ? !determine(depth+1, 0, 0, 0) : false;//å½»åº•è¦ä¸èµ· 
 	}
 	else
 	{
@@ -359,7 +359,7 @@ bool attachFinder(int depth, int cardType, int beg, int num,
 					int index, int rest)
 {
 	const int player = depth % 2;
-	if (rest == 0)//µİ¹éÕÒÆëºó½øĞĞ³¢ÊÔ 
+	if (rest == 0)//é€’å½’æ‰¾é½åè¿›è¡Œå°è¯• 
 	{
 		bool ans = !determine(depth+1, cardType, beg, num);
 		if (ans && depth == 0) newCardRecord();
@@ -374,7 +374,7 @@ bool attachFinder(int depth, int cardType, int beg, int num,
 				bool ans = attachFinder(depth, cardType, beg, num,
 					i, rest-1);
 				card[player][i] += cardType-8;
-				if (ans) return true;//ÓĞÒ»×éÄÜĞĞÔòÍ£Ö¹ 
+				if (ans) return true;//æœ‰ä¸€ç»„èƒ½è¡Œåˆ™åœæ­¢ 
 			}
 		return false;
 	}
