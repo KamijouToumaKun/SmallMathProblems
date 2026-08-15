@@ -1,0 +1,20 @@
+{
+  "computer_first": true,
+  "rules": {
+    "single": true,
+    "pair": true,
+    "triple": true,
+    "triple_one": true,
+    "triple_two": false,
+    "straight": true,
+    "double_straight": true,
+    "triple_straight": true,
+    "plane_with_singles": false,
+    "plane_with_pairs": false,
+    "bomb": true,
+    "four_with_two": true,
+    "four_with_two_pairs": false
+  },
+  "computer": "bs22AKK",
+  "player": "22443333"
+}
